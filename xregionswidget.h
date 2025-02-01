@@ -7,8 +7,7 @@ namespace Ui {
 class XRegionsWidget;
 }
 
-class XRegionsWidget : public QWidget
-{
+class XRegionsWidget : public QWidget {
     Q_OBJECT
 
 public:
@@ -19,4 +18,4 @@ private:
     Ui::XRegionsWidget *ui;
 };
 
-#endif // XREGIONSWIDGET_H
+#endif  // XREGIONSWIDGET_H

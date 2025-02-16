@@ -33,5 +33,4 @@ XRegionsWidget::~XRegionsWidget()
 
 void XRegionsWidget::adjustView()
 {
-
 }

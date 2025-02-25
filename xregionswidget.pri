@@ -2,9 +2,13 @@ INCLUDEPATH += $$PWD
 DEPENDPATH += $$PWD
 
 HEADERS += \
+    $$PWD/xregionitem.h \
+    $$PWD/xregionsmodel.h \
     $$PWD/xregionswidget.h
 
 SOURCES += \
+    $$PWD/xregionitem.cpp \
+    $$PWD/xregionsmodel.cpp \
     $$PWD/xregionswidget.cpp
 
 FORMS += \

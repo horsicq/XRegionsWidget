@@ -7,6 +7,10 @@ endif()
 
 set(XREGIONSWIDGET_SOURCES
     ${XREGIONSWIDGET_SOURCES}
+    ${CMAKE_CURRENT_LIST_DIR}/xregionitem.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/xregionitem.h
+    ${CMAKE_CURRENT_LIST_DIR}/xregionsmodel.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/xregionsmodel.h
     ${CMAKE_CURRENT_LIST_DIR}/xregionswidget.cpp
     ${CMAKE_CURRENT_LIST_DIR}/xregionswidget.h
     ${CMAKE_CURRENT_LIST_DIR}/xregionswidget.ui

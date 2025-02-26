@@ -21,8 +21,8 @@
 #ifndef XREGIONSWIDGET_H
 #define XREGIONSWIDGET_H
 
-#include <QWidget>
 #include "xshortcutswidget.h"
+#include "xinfodb.h"
 
 namespace Ui {
 class XRegionsWidget;
@@ -34,10 +34,17 @@ class XRegionsWidget : public XShortcutsWidget {
 public:
     explicit XRegionsWidget(QWidget *pParent = nullptr);
     ~XRegionsWidget();
+
+    void setData(QIODevice *pDevice, XBinary::FT fileType, XInfoDB *pXInfoDB, QString sXInfoProfile);
+
     virtual void adjustView();
 
 private:
     Ui::XRegionsWidget *ui;
+    QIODevice *g_pDevice;
+    XBinary::FT g_fileType;
+    XInfoDB *g_pXInfoDB;
+    QString g_sXInfoProfile;
 };
 
 #endif  // XREGIONSWIDGET_H

@@ -28,6 +28,7 @@ XRegionsWidget::XRegionsWidget(QWidget *pParent) : XShortcutsWidget(pParent), ui
     g_pDevice = nullptr;
     g_fileType = XBinary::FT_UNKNOWN;
     g_pXInfoDB = nullptr;
+    g_profile = XInfoDB::PROFILE_UNKNOWN;
 }
 
 XRegionsWidget::~XRegionsWidget()
@@ -35,12 +36,12 @@ XRegionsWidget::~XRegionsWidget()
     delete ui;
 }
 
-void XRegionsWidget::setData(QIODevice *pDevice, XBinary::FT fileType, XInfoDB *pXInfoDB, QString sXInfoProfile)
+void XRegionsWidget::setData(QIODevice *pDevice, XBinary::FT fileType, XInfoDB *pXInfoDB, XInfoDB::PROFILE profile)
 {
     g_pDevice = pDevice;
     g_fileType = fileType;
     g_pXInfoDB = pXInfoDB;
-    g_sXInfoProfile = sXInfoProfile;
+    g_profile = profile;
 }
 
 void XRegionsWidget::adjustView()

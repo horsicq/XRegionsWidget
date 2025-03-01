@@ -2,5 +2,4 @@
 
 XRegionsModel::XRegionsModel()
 {
-
 }

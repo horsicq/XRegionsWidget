@@ -3,11 +3,10 @@
 
 #include <QAbstractItemModel>
 
-class XRegionsModel : public QAbstractItemModel
-{
+class XRegionsModel : public QAbstractItemModel {
     Q_OBJECT
 public:
     XRegionsModel();
 };
 
-#endif // XREGIONSMODEL_H
+#endif  // XREGIONSMODEL_H

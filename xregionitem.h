@@ -1,11 +1,9 @@
 #ifndef XREGIONITEM_H
 #define XREGIONITEM_H
 
-
-class XRegionItem
-{
+class XRegionItem {
 public:
     XRegionItem();
 };
 
-#endif // XREGIONITEM_H
+#endif  // XREGIONITEM_H

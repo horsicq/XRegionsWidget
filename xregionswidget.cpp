@@ -36,14 +36,24 @@ XRegionsWidget::~XRegionsWidget()
     delete ui;
 }
 
-void XRegionsWidget::setData(QIODevice *pDevice, XBinary::FT fileType, XInfoDB *pXInfoDB, XInfoDB::PROFILE profile)
+void XRegionsWidget::setData(QIODevice *pDevice, XBinary::FT fileType, XInfoDB *pXInfoDB, XInfoDB::PROFILE profile, bool bReload)
 {
     g_pDevice = pDevice;
     g_fileType = fileType;
     g_pXInfoDB = pXInfoDB;
     g_profile = profile;
+
+    if (bReload) {
+        reloadData(false);
+    }
 }
 
 void XRegionsWidget::adjustView()
 {
+
+}
+
+void XRegionsWidget::reloadData(bool bSaveSelection)
+{
+    Q_UNUSED(bSaveSelection)
 }

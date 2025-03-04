@@ -35,9 +35,10 @@ public:
     explicit XRegionsWidget(QWidget *pParent = nullptr);
     ~XRegionsWidget();
 
-    void setData(QIODevice *pDevice, XBinary::FT fileType, XInfoDB *pXInfoDB, XInfoDB::PROFILE profile);
+    void setData(QIODevice *pDevice, XBinary::FT fileType, XInfoDB *pXInfoDB, XInfoDB::PROFILE profile, bool bReload = true);
 
     virtual void adjustView();
+    virtual void reloadData(bool bSaveSelection);
 
 private:
     Ui::XRegionsWidget *ui;

@@ -43,6 +43,8 @@ void XRegionsWidget::setData(QIODevice *pDevice, XBinary::FT fileType, XInfoDB *
     g_pXInfoDB = pXInfoDB;
     g_profile = profile;
 
+    XFormats::setFileTypeComboBox(fileType, g_pDevice, ui->comboBoxType);
+
     if (bReload) {
         reloadData(false);
     }

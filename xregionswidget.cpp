@@ -28,7 +28,6 @@ XRegionsWidget::XRegionsWidget(QWidget *pParent) : XShortcutsWidget(pParent), ui
     g_pDevice = nullptr;
     g_fileType = XBinary::FT_UNKNOWN;
     g_pXInfoDB = nullptr;
-    g_profile = XInfoDB::PROFILE_UNKNOWN;
 }
 
 XRegionsWidget::~XRegionsWidget()
@@ -36,12 +35,11 @@ XRegionsWidget::~XRegionsWidget()
     delete ui;
 }
 
-void XRegionsWidget::setData(QIODevice *pDevice, XBinary::FT fileType, XInfoDB *pXInfoDB, XInfoDB::PROFILE profile, bool bReload)
+void XRegionsWidget::setData(QIODevice *pDevice, XBinary::FT fileType, XInfoDB *pXInfoDB, bool bReload)
 {
     g_pDevice = pDevice;
     g_fileType = fileType;
     g_pXInfoDB = pXInfoDB;
-    g_profile = profile;
 
     XFormats::setFileTypeComboBox(fileType, g_pDevice, ui->comboBoxType);
 

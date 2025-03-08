@@ -50,7 +50,6 @@ void XRegionsWidget::setData(QIODevice *pDevice, XBinary::FT fileType, XInfoDB *
 
 void XRegionsWidget::adjustView()
 {
-
 }
 
 void XRegionsWidget::reloadData(bool bSaveSelection)

@@ -22,11 +22,19 @@
 #define XREGIONSMODEL_H
 
 #include <QAbstractItemModel>
+#include "xregionitem.h"
+#include "xinfodb.h"
 
 class XRegionsModel : public QAbstractItemModel {
     Q_OBJECT
+
 public:
-    XRegionsModel();
+    XRegionsModel(XInfoDB *pXInfoDB, XBinary::FT fileType, QObject *pParent = nullptr);
+    QModelIndex index(int nRow, int nColumn, const QModelIndex &parent = QModelIndex()) const override;
+    QModelIndex parent(const QModelIndex &index) const override;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
+    QVariant data(const QModelIndex &index, int nRole = Qt::DisplayRole) const override;
 };
 
 #endif  // XREGIONSMODEL_H

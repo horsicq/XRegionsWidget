@@ -20,6 +20,62 @@
  */
 #include "xregionsmodel.h"
 
-XRegionsModel::XRegionsModel()
+XRegionsModel::XRegionsModel(XInfoDB *pXInfoDB, XBinary::FT fileType, QObject *pParent) : QAbstractItemModel(pParent)
 {
+    Q_UNUSED(pXInfoDB)
+    Q_UNUSED(fileType)
+}
+
+QModelIndex XRegionsModel::index(int nRow, int nColumn, const QModelIndex &parent) const
+{
+    QModelIndex result;
+
+    if (hasIndex(nRow, nColumn, parent)) {
+        // XFileInfoItem *pItemParent = nullptr;
+
+        // if (!parent.isValid()) {
+        //     pItemParent = g_pRootItem;
+        // } else {
+        //     pItemParent = static_cast<XFileInfoItem *>(parent.internalPointer());
+        // }
+
+        // XFileInfoItem *pItemChild = pItemParent->child(nRow);
+
+        // if (pItemChild) {
+        //     result = createIndex(nRow, nColumn, pItemChild);
+        // }
+    }
+
+    return result;
+}
+
+QModelIndex XRegionsModel::parent(const QModelIndex &index) const
+{
+    QModelIndex result;
+
+    if (index.isValid()) {
+        // XFileInfoItem *pItemChild = static_cast<XFileInfoItem *>(index.internalPointer());
+        // XFileInfoItem *pParentItem = pItemChild->getParentItem();
+
+        // if (pParentItem != g_pRootItem) {
+        //     result = createIndex(pParentItem->row(), 0, pParentItem);
+        // }
+    }
+
+    return result;
+}
+
+int XRegionsModel::rowCount(const QModelIndex &parent) const
+{
+    return 0;
+}
+
+int XRegionsModel::columnCount(const QModelIndex &parent) const
+{
+    return 0;
+}
+
+QVariant XRegionsModel::data(const QModelIndex &index, int nRole) const
+{
+    return QVariant();
 }

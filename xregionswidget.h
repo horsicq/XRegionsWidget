@@ -23,6 +23,7 @@
 
 #include "xshortcutswidget.h"
 #include "xinfodb.h"
+#include "xregionsmodel.h"
 
 namespace Ui {
 class XRegionsWidget;

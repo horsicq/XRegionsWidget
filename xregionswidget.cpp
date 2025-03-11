@@ -55,4 +55,11 @@ void XRegionsWidget::adjustView()
 void XRegionsWidget::reloadData(bool bSaveSelection)
 {
     Q_UNUSED(bSaveSelection)
+
+    if (g_pXInfoDB) {
+        XBinary::FT fileType = (XBinary::FT)(ui->comboBoxType->currentData().toUInt());
+        XRegionsModel *pModel = new XRegionsModel(g_pXInfoDB, fileType, this);
+
+        ui->treeViewMain->setModel(pModel);
+    }
 }

@@ -29,12 +29,17 @@ class XRegionsModel : public QAbstractItemModel {
     Q_OBJECT
 
 public:
-    XRegionsModel(XInfoDB *pXInfoDB, XBinary::FT fileType, QObject *pParent = nullptr);
+    XRegionsModel(QIODevice *pDevice, XBinary::FT fileType, QObject *pParent = nullptr);
+
     QModelIndex index(int nRow, int nColumn, const QModelIndex &parent = QModelIndex()) const override;
     QModelIndex parent(const QModelIndex &index) const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int nRole = Qt::DisplayRole) const override;
+
+private:
+    QIODevice *g_pDevice;
+    XBinary::FT g_fileType;
 };
 
 #endif  // XREGIONSMODEL_H

@@ -20,10 +20,10 @@
  */
 #include "xregionsmodel.h"
 
-XRegionsModel::XRegionsModel(XInfoDB *pXInfoDB, XBinary::FT fileType, QObject *pParent) : QAbstractItemModel(pParent)
+XRegionsModel::XRegionsModel(QIODevice *pDevice, XBinary::FT fileType, QObject *pParent) : QAbstractItemModel(pParent)
 {
-    Q_UNUSED(pXInfoDB)
-    Q_UNUSED(fileType)
+    g_pDevice = pDevice;
+    g_fileType = fileType;
 }
 
 QModelIndex XRegionsModel::index(int nRow, int nColumn, const QModelIndex &parent) const

@@ -29,7 +29,13 @@ class XRegionsModel : public QAbstractItemModel {
     Q_OBJECT
 
 public:
-    XRegionsModel(QIODevice *pDevice, XBinary::FT fileType, QObject *pParent = nullptr);
+    struct OPTIONS {
+        XBinary::FT fileType;
+        bool bIsImage;
+        XADDR nModuleAddress;
+    };
+
+    XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTIONS &options, QObject *pParent = nullptr);
 
     QModelIndex index(int nRow, int nColumn, const QModelIndex &parent = QModelIndex()) const override;
     QModelIndex parent(const QModelIndex &index) const override;
@@ -39,7 +45,8 @@ public:
 
 private:
     QIODevice *g_pDevice;
-    XBinary::FT g_fileType;
+    XInfoDB *g_pXInfoDB;
+    OPTIONS g_options;
 };
 
 #endif  // XREGIONSMODEL_H

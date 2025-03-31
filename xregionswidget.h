@@ -36,7 +36,7 @@ public:
     explicit XRegionsWidget(QWidget *pParent = nullptr);
     ~XRegionsWidget();
 
-    void setData(QIODevice *pDevice, XBinary::FT fileType, XInfoDB *pXInfoDB, bool bReload = true);
+    void setData(QIODevice *pDevice, XInfoDB *pXInfoDB, const XRegionsModel::OPTIONS &options, bool bReload = true);
 
     virtual void adjustView();
     virtual void reloadData(bool bSaveSelection);
@@ -44,8 +44,8 @@ public:
 private:
     Ui::XRegionsWidget *ui;
     QIODevice *g_pDevice;
-    XBinary::FT g_fileType;
     XInfoDB *g_pXInfoDB;
+    XRegionsModel::OPTIONS g_options;
 };
 
 #endif  // XREGIONSWIDGET_H

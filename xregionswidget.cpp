@@ -26,8 +26,8 @@ XRegionsWidget::XRegionsWidget(QWidget *pParent) : XShortcutsWidget(pParent), ui
     ui->setupUi(this);
 
     g_pDevice = nullptr;
-    g_fileType = XBinary::FT_UNKNOWN;
     g_pXInfoDB = nullptr;
+    g_options = {};
 }
 
 XRegionsWidget::~XRegionsWidget()
@@ -35,13 +35,13 @@ XRegionsWidget::~XRegionsWidget()
     delete ui;
 }
 
-void XRegionsWidget::setData(QIODevice *pDevice, XBinary::FT fileType, XInfoDB *pXInfoDB, bool bReload)
+void XRegionsWidget::setData(QIODevice *pDevice, XInfoDB *pXInfoDB, const XRegionsModel::OPTIONS &options, bool bReload)
 {
     g_pDevice = pDevice;
-    g_fileType = fileType;
     g_pXInfoDB = pXInfoDB;
+    g_options = options;
 
-    XFormats::setFileTypeComboBox(fileType, g_pDevice, ui->comboBoxType);
+    XFormats::setFileTypeComboBox(options.fileType, g_pDevice, ui->comboBoxType);
 
     if (bReload) {
         reloadData(false);
@@ -57,8 +57,9 @@ void XRegionsWidget::reloadData(bool bSaveSelection)
     Q_UNUSED(bSaveSelection)
 
     if (g_pXInfoDB) {
-        XBinary::FT fileType = (XBinary::FT)(ui->comboBoxType->currentData().toUInt());
-        XRegionsModel *pModel = new XRegionsModel(g_pDevice, fileType, this);
+        XRegionsModel::OPTIONS _options = g_options;
+        _options.fileType = (XBinary::FT)(ui->comboBoxType->currentData().toUInt());
+        XRegionsModel *pModel = new XRegionsModel(g_pDevice, g_pXInfoDB, _options, this);
 
         ui->treeViewMain->setModel(pModel);
     }

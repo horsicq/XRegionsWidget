@@ -20,10 +20,13 @@
  */
 #include "xregionsmodel.h"
 
-XRegionsModel::XRegionsModel(QIODevice *pDevice, XBinary::FT fileType, QObject *pParent) : QAbstractItemModel(pParent)
+XRegionsModel::XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTIONS &options, QObject *pParent) : QAbstractItemModel(pParent)
 {
     g_pDevice = pDevice;
-    g_fileType = fileType;
+    g_pXInfoDB = pXInfoDB;
+    g_options = options;
+
+    // XFormats::getHighlights()
 }
 
 QModelIndex XRegionsModel::index(int nRow, int nColumn, const QModelIndex &parent) const

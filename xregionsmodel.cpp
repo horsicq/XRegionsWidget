@@ -26,7 +26,7 @@ XRegionsModel::XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTION
     g_pXInfoDB = pXInfoDB;
     g_options = options;
 
-    // XFormats::getHighlights()
+    XFormats::getHighlights(options.fileType, pDevice, XBinary::HLTYPE_NATIVEREGIONS, options.bIsImage, options.nModuleAddress);
 }
 
 QModelIndex XRegionsModel::index(int nRow, int nColumn, const QModelIndex &parent) const

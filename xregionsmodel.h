@@ -23,8 +23,8 @@
 
 #include <QAbstractItemModel>
 #include "xregionitem.h"
-#include "xinfodb.h"
 
+// TODO finder like in MemoryMap
 class XRegionsModel : public QAbstractItemModel {
     Q_OBJECT
 
@@ -36,6 +36,7 @@ public:
     };
 
     XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTIONS &options, QObject *pParent = nullptr);
+    ~XRegionsModel();
 
     QModelIndex index(int nRow, int nColumn, const QModelIndex &parent = QModelIndex()) const override;
     QModelIndex parent(const QModelIndex &index) const override;
@@ -47,6 +48,7 @@ private:
     QIODevice *g_pDevice;
     XInfoDB *g_pXInfoDB;
     OPTIONS g_options;
+    XRegionItem *g_pMainItem;
 };
 
 #endif  // XREGIONSMODEL_H

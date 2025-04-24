@@ -20,6 +20,12 @@
  */
 #include "xregionitem.h"
 
-XRegionItem::XRegionItem()
+XRegionItem::XRegionItem(const XBinary::HREGION &hregion)
 {
+    g_hregion = hregion;
+}
+
+XRegionItem::~XRegionItem()
+{
+    qDeleteAll(g_listChildItems);
 }

@@ -26,7 +26,32 @@ XRegionsModel::XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTION
     g_pXInfoDB = pXInfoDB;
     g_options = options;
 
-    XFormats::getHighlights(options.fileType, pDevice, XBinary::HLTYPE_NATIVEREGIONS, options.bIsImage, options.nModuleAddress);
+    {
+        QList<XBinary::HREGION> listHRegionsTotal = XFormats::getHighlights(options.fileType, pDevice, XBinary::HLTYPE_TOTAL, options.bIsImage, options.nModuleAddress);
+
+        qint32 nNumberOfRegionsTotal = listHRegionsTotal.count();
+
+        if (nNumberOfRegionsTotal) {
+            g_pMainItem = new XRegionItem(listHRegionsTotal.at(0));
+        } else {
+            g_pMainItem = nullptr;
+        }
+    }
+
+    QList<XBinary::HREGION> listHRegions = XFormats::getHighlights(options.fileType, pDevice, XBinary::HLTYPE_NATIVEREGIONS, options.bIsImage, options.nModuleAddress);
+
+    qint32 nNumberOfRegions = listHRegions.count();
+
+    for (qint32 i = 0; i < nNumberOfRegions; i++) {
+
+    }
+}
+
+XRegionsModel::~XRegionsModel()
+{
+    if (g_pMainItem) {
+        delete g_pMainItem;
+    }
 }
 
 QModelIndex XRegionsModel::index(int nRow, int nColumn, const QModelIndex &parent) const

@@ -21,9 +21,16 @@
 #ifndef XREGIONITEM_H
 #define XREGIONITEM_H
 
+#include "xinfodb.h"
+
 class XRegionItem {
 public:
-    XRegionItem();
+    XRegionItem(const XBinary::HREGION &hregion);
+    ~XRegionItem();
+
+private:
+    QList<XRegionItem *> g_listChildItems;
+    XBinary::HREGION g_hregion;
 };
 
 #endif  // XREGIONITEM_H

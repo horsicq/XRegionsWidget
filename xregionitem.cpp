@@ -20,12 +20,49 @@
  */
 #include "xregionitem.h"
 
-XRegionItem::XRegionItem(const XBinary::HREGION &hregion)
+XRegionItem::XRegionItem(XRegionItem *pItemParent, const XBinary::HREGION &hregion)
 {
+    g_pParentItem = pItemParent;
     g_hregion = hregion;
 }
 
 XRegionItem::~XRegionItem()
 {
     qDeleteAll(g_listChildItems);
+}
+
+void XRegionItem::appendChild(XRegionItem *pItemChild)
+{
+    g_listChildItems.append(pItemChild);
+}
+
+XRegionItem *XRegionItem::child(int nRow)
+{
+    return g_listChildItems.value(nRow);
+}
+
+int XRegionItem::childCount() const
+{
+    return g_listChildItems.count();
+}
+
+int XRegionItem::columnCount() const
+{
+    return 6;
+}
+
+int XRegionItem::row() const
+{
+    int nResult = 0;
+
+    if (g_pParentItem) {
+        nResult = g_pParentItem->g_listChildItems.indexOf(const_cast<XRegionItem *>(this));
+    }
+
+    return nResult;
+}
+
+XRegionItem *XRegionItem::getParentItem()
+{
+    return g_pParentItem;
 }

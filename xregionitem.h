@@ -25,11 +25,19 @@
 
 class XRegionItem {
 public:
-    XRegionItem(const XBinary::HREGION &hregion);
+    XRegionItem(XRegionItem *pItemParent, const XBinary::HREGION &hregion);
     ~XRegionItem();
+
+    void appendChild(XRegionItem *pItemChild);
+    XRegionItem *child(int nRow);
+    int childCount() const;
+    int columnCount() const;
+    int row() const;
+    XRegionItem *getParentItem();
 
 private:
     QList<XRegionItem *> g_listChildItems;
+    XRegionItem *g_pParentItem;
     XBinary::HREGION g_hregion;
 };
 

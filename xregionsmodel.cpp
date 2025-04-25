@@ -32,7 +32,7 @@ XRegionsModel::XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTION
         qint32 nNumberOfRegionsTotal = listHRegionsTotal.count();
 
         if (nNumberOfRegionsTotal) {
-            g_pMainItem = new XRegionItem(listHRegionsTotal.at(0));
+            g_pMainItem = new XRegionItem(nullptr, listHRegionsTotal.at(0));
         } else {
             g_pMainItem = nullptr;
         }
@@ -59,19 +59,19 @@ QModelIndex XRegionsModel::index(int nRow, int nColumn, const QModelIndex &paren
     QModelIndex result;
 
     if (hasIndex(nRow, nColumn, parent)) {
-        // XFileInfoItem *pItemParent = nullptr;
+        XRegionItem *pParentItem = nullptr;
 
-        // if (!parent.isValid()) {
-        //     pItemParent = g_pRootItem;
-        // } else {
-        //     pItemParent = static_cast<XFileInfoItem *>(parent.internalPointer());
-        // }
+        if (!parent.isValid()) {
+            pParentItem = g_pMainItem;
+        } else {
+            pParentItem = static_cast<XRegionItem *>(parent.internalPointer());
+        }
 
-        // XFileInfoItem *pItemChild = pItemParent->child(nRow);
+        XRegionItem *pItemChild = pParentItem->child(nRow);
 
-        // if (pItemChild) {
-        //     result = createIndex(nRow, nColumn, pItemChild);
-        // }
+        if (pItemChild) {
+            result = createIndex(nRow, nColumn, pItemChild);
+        }
     }
 
     return result;
@@ -82,12 +82,12 @@ QModelIndex XRegionsModel::parent(const QModelIndex &index) const
     QModelIndex result;
 
     if (index.isValid()) {
-        // XFileInfoItem *pItemChild = static_cast<XFileInfoItem *>(index.internalPointer());
-        // XFileInfoItem *pParentItem = pItemChild->getParentItem();
+        XRegionItem *pItemChild = static_cast<XRegionItem *>(index.internalPointer());
+        XRegionItem *pParentItem = pItemChild->getParentItem();
 
-        // if (pParentItem != g_pRootItem) {
-        //     result = createIndex(pParentItem->row(), 0, pParentItem);
-        // }
+        if (pParentItem != g_pMainItem) {
+            result = createIndex(pParentItem->row(), 0, pParentItem);
+        }
     }
 
     return result;
@@ -95,15 +95,37 @@ QModelIndex XRegionsModel::parent(const QModelIndex &index) const
 
 int XRegionsModel::rowCount(const QModelIndex &parent) const
 {
-    return 0;
+    int nResult = 0;
+
+    if (parent.column() <= 0) {
+        XRegionItem *pParentItem = nullptr;
+
+        if (!parent.isValid()) {
+            pParentItem = g_pMainItem;
+        } else {
+            pParentItem = static_cast<XRegionItem *>(parent.internalPointer());
+        }
+
+        nResult = pParentItem->childCount();
+    }
+
+    return nResult;
 }
 
 int XRegionsModel::columnCount(const QModelIndex &parent) const
 {
-    return 0;
+    return g_pMainItem->columnCount();;
 }
 
 QVariant XRegionsModel::data(const QModelIndex &index, int nRole) const
 {
-    return QVariant();
+    QVariant result;
+
+    if (index.isValid()) {
+        if (nRole == Qt::DisplayRole) {
+            result = "DATA";
+        }
+    }
+
+    return result;
 }

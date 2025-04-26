@@ -43,7 +43,6 @@ XRegionsModel::XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTION
     qint32 nNumberOfRegions = listHRegions.count();
 
     for (qint32 i = 0; i < nNumberOfRegions; i++) {
-
     }
 }
 
@@ -114,7 +113,8 @@ int XRegionsModel::rowCount(const QModelIndex &parent) const
 
 int XRegionsModel::columnCount(const QModelIndex &parent) const
 {
-    return g_pMainItem->columnCount();;
+    return g_pMainItem->columnCount();
+    ;
 }
 
 QVariant XRegionsModel::data(const QModelIndex &index, int nRole) const

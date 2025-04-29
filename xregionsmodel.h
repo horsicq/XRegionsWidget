@@ -49,6 +49,8 @@ private:
     XInfoDB *g_pXInfoDB;
     OPTIONS g_options;
     XRegionItem *g_pMainItem;
+    QList<XBinary::HREGION> g_listHRegionsTotal;
+    QList<XBinary::HREGION> g_listHRegions;
 };
 
 #endif  // XREGIONSMODEL_H

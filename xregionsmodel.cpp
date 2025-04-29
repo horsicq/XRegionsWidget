@@ -27,22 +27,23 @@ XRegionsModel::XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTION
     g_options = options;
 
     {
-        QList<XBinary::HREGION> listHRegionsTotal = XFormats::getHighlights(options.fileType, pDevice, XBinary::HLTYPE_TOTAL, options.bIsImage, options.nModuleAddress);
+        g_listHRegionsTotal = XFormats::getHighlights(options.fileType, pDevice, XBinary::HLTYPE_TOTAL, options.bIsImage, options.nModuleAddress);
 
-        qint32 nNumberOfRegionsTotal = listHRegionsTotal.count();
+        qint32 nNumberOfRegionsTotal = g_listHRegionsTotal.count();
 
         if (nNumberOfRegionsTotal) {
-            g_pMainItem = new XRegionItem(nullptr, listHRegionsTotal.at(0));
+            g_pMainItem = new XRegionItem(nullptr, g_listHRegionsTotal.at(0));
         } else {
             g_pMainItem = nullptr;
         }
     }
 
-    QList<XBinary::HREGION> listHRegions = XFormats::getHighlights(options.fileType, pDevice, XBinary::HLTYPE_NATIVEREGIONS, options.bIsImage, options.nModuleAddress);
+    g_listHRegions = XFormats::getHighlights(options.fileType, pDevice, XBinary::HLTYPE_NATIVEREGIONS, options.bIsImage, options.nModuleAddress);
 
-    qint32 nNumberOfRegions = listHRegions.count();
+    qint32 nNumberOfRegions = g_listHRegions.count();
 
     for (qint32 i = 0; i < nNumberOfRegions; i++) {
+        g_pMainItem->appendChild(new XRegionItem(g_pMainItem, g_listHRegions.at(0)));
     }
 }
 

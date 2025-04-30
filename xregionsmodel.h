@@ -44,6 +44,11 @@ public:
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int nRole = Qt::DisplayRole) const override;
 
+    QString toFormattedString();
+
+private:
+    void _toFormattedString(QString *pString, XRegionItem *pItem, qint32 nLevel);
+
 private:
     QIODevice *g_pDevice;
     XInfoDB *g_pXInfoDB;

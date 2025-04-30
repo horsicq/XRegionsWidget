@@ -123,10 +123,35 @@ QVariant XRegionsModel::data(const QModelIndex &index, int nRole) const
     QVariant result;
 
     if (index.isValid()) {
+        XRegionItem *pItem = static_cast<XRegionItem *>(index.internalPointer());
+
         if (nRole == Qt::DisplayRole) {
-            result = "DATA";
+            result = pItem->data(index.column());
         }
     }
 
     return result;
+}
+
+QString XRegionsModel::toFormattedString()
+{
+    QString sResult;
+
+    _toFormattedString(&sResult, g_pMainItem, 0);
+
+    return sResult;
+}
+
+void XRegionsModel::_toFormattedString(QString *pString, XRegionItem *pItem, qint32 nLevel)
+{
+    QString sResult;
+    sResult = sResult.leftJustified(4 * nLevel, ' ');  // TODO function !!!
+    sResult.append(QString("%1\n").arg(pItem->data(0).toString()));
+    pString->append(sResult);
+
+    qint32 nNumberOfChildren = pItem->childCount();
+
+    for (qint32 i = 0; i < nNumberOfChildren; i++) {
+        _toFormattedString(pString, pItem->child(i), nLevel + 1);
+    }
 }

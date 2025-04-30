@@ -34,6 +34,7 @@ public:
     int columnCount() const;
     int row() const;
     XRegionItem *getParentItem();
+    QVariant data(int nColumn) const;
 
 private:
     QList<XRegionItem *> g_listChildItems;

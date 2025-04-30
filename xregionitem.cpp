@@ -66,3 +66,12 @@ XRegionItem *XRegionItem::getParentItem()
 {
     return g_pParentItem;
 }
+
+QVariant XRegionItem::data(int nColumn) const
+{
+    QVariant result;
+
+    result = "TEST";
+
+    return result;
+}

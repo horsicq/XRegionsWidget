@@ -71,7 +71,7 @@ QVariant XRegionItem::data(int nColumn) const
 {
     QVariant result;
 
-    result = "TEST";
+    result = QString::number(nColumn);
 
     return result;
 }

@@ -24,6 +24,23 @@
 #include "xinfodb.h"
 
 class XRegionItem {
+    // XADDR nVirtualAddress;
+    // qint64 nVirtualSize;
+    // qint64 nFileOffset;
+    // qint64 nFileSize;
+    // RFLAGS rflags;
+    // QString sName;
+    enum COLUMN {
+        COLUMN_VIRTUALADDRESS = 0,
+        COLUMN_VIRTUALSIZE,
+        COLUMN_FILEOFFSET,
+        COLUMN_FILESIZE,
+        COLUMN_RFLAGS,
+        COLUMN_NAME,
+        COLUMN_INFO,
+        __COLUMN_SIZE
+    };
+
 public:
     XRegionItem(XRegionItem *pItemParent, const XBinary::HREGION &hregion);
     ~XRegionItem();

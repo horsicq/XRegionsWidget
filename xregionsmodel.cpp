@@ -43,7 +43,7 @@ XRegionsModel::XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTION
     qint32 nNumberOfRegions = g_listHRegions.count();
 
     for (qint32 i = 0; i < nNumberOfRegions; i++) {
-        g_pMainItem->appendChild(new XRegionItem(g_pMainItem, g_listHRegions.at(0)));
+        g_pMainItem->appendChild(new XRegionItem(g_pMainItem, g_listHRegions.at(i)));
     }
 }
 

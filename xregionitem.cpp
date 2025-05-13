@@ -48,7 +48,7 @@ int XRegionItem::childCount() const
 
 int XRegionItem::columnCount() const
 {
-    return 6;
+    return __COLUMN_SIZE;
 }
 
 int XRegionItem::row() const
@@ -71,7 +71,23 @@ QVariant XRegionItem::data(int nColumn) const
 {
     QVariant result;
 
-    result = QString::number(nColumn);
+    if (nColumn == COLUMN_NAME) {
+        result = g_hregion.sName;
+    } else if (nColumn == COLUMN_VIRTUALADDRESS) {
+        result = XBinary::valueToHex(g_hregion.nVirtualAddress);
+    } else if (nColumn == COLUMN_VIRTUALSIZE) {
+        result = XBinary::valueToHex(g_hregion.nVirtualSize);
+    } else if (nColumn == COLUMN_FILEOFFSET) {
+        result = XBinary::valueToHex(g_hregion.nFileOffset);
+    } else if (nColumn == COLUMN_FILESIZE) {
+        result = XBinary::valueToHex(g_hregion.nFileSize);
+    } else if (nColumn == COLUMN_RFLAGS) {
+        // TODO
+    } else if (nColumn == COLUMN_INFO) {
+        // TODO
+    } else {
+        result = QVariant();
+    }
 
     return result;
 }

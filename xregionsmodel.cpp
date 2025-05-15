@@ -26,25 +26,48 @@ XRegionsModel::XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTION
     g_pXInfoDB = pXInfoDB;
     g_options = options;
 
-    {
-        g_listHRegionsTotal = XFormats::getHighlights(options.fileType, pDevice, XBinary::HLTYPE_TOTAL, options.bIsImage, options.nModuleAddress);
+    g_listHRegionTotal = XFormats::getHighlights(options.fileType, pDevice, XBinary::HLTYPE_TOTAL, options.bIsImage, options.nModuleAddress);
+    g_listHRegionsNative = XFormats::getHighlights(options.fileType, pDevice, XBinary::HLTYPE_NATIVEREGIONS, options.bIsImage, options.nModuleAddress);
+    g_listHRegionsSubNative = XFormats::getHighlights(options.fileType, pDevice, XBinary::HLTYPE_NATIVESUBREGIONS, options.bIsImage, options.nModuleAddress);
 
-        qint32 nNumberOfRegionsTotal = g_listHRegionsTotal.count();
+    {
+        qint32 nNumberOfRegionsTotal = g_listHRegionTotal.count();
 
         if (nNumberOfRegionsTotal) {
-            g_pMainItem = new XRegionItem(nullptr, g_listHRegionsTotal.at(0));
+            g_pMainItem = new XRegionItem(nullptr, g_listHRegionTotal.at(0));
+            g_mapItems.insert(g_listHRegionTotal.at(0).sGUID, g_pMainItem);
         } else {
             g_pMainItem = nullptr;
         }
     }
+    {
+        qint32 nNumberOfRegions = g_listHRegionsNative.count();
 
-    g_listHRegions = XFormats::getHighlights(options.fileType, pDevice, XBinary::HLTYPE_NATIVEREGIONS, options.bIsImage, options.nModuleAddress);
+        for (qint32 i = 0; i < nNumberOfRegions; i++) {
+            XRegionItem *pItem = new XRegionItem(g_pMainItem, g_listHRegionsNative.at(i));
 
-    qint32 nNumberOfRegions = g_listHRegions.count();
+            if (g_pMainItem) {
+                g_pMainItem->appendChild(pItem);
+            }
 
-    for (qint32 i = 0; i < nNumberOfRegions; i++) {
-        g_pMainItem->appendChild(new XRegionItem(g_pMainItem, g_listHRegions.at(i)));
+            g_mapItems.insert(g_listHRegionsNative.at(i).sGUID, pItem);
+        }
     }
+    {
+        qint32 nNumberOfRegions = g_listHRegionsSubNative.count();
+
+        for (qint32 i = 0; i < nNumberOfRegions; i++) {
+            XRegionItem *pItem = new XRegionItem(g_pMainItem, g_listHRegionsSubNative.at(i));
+
+            if (g_pMainItem) {
+                g_pMainItem->appendChild(pItem);
+            }
+
+            g_mapItems.insert(g_listHRegionsSubNative.at(i).sGUID, pItem);
+        }
+    }
+
+    // TODO invalids
 }
 
 XRegionsModel::~XRegionsModel()

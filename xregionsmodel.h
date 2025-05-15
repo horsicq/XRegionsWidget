@@ -54,8 +54,10 @@ private:
     XInfoDB *g_pXInfoDB;
     OPTIONS g_options;
     XRegionItem *g_pMainItem;
-    QList<XBinary::HREGION> g_listHRegionsTotal;
-    QList<XBinary::HREGION> g_listHRegions;
+    QMap<QString, XRegionItem *> g_mapItems;
+    QList<XBinary::HREGION> g_listHRegionTotal;
+    QList<XBinary::HREGION> g_listHRegionsNative;
+    QList<XBinary::HREGION> g_listHRegionsSubNative;
 };
 
 #endif  // XREGIONSMODEL_H

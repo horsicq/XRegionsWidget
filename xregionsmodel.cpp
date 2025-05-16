@@ -59,8 +59,14 @@ XRegionsModel::XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTION
         for (qint32 i = 0; i < nNumberOfRegions; i++) {
             XRegionItem *pItem = new XRegionItem(g_pMainItem, g_listHRegionsSubNative.at(i));
 
-            if (g_pMainItem) {
-                g_pMainItem->appendChild(pItem);
+            QString sGUID = XBinary::findParentHRegion(g_listHRegionsNative, g_listHRegionsSubNative.at(i)).sGUID;
+
+            if (sGUID != "") {
+                g_mapItems.value(sGUID)->appendChild(pItem);
+            } else {
+                if (g_pMainItem) {
+                    g_pMainItem->appendChild(pItem);
+                }
             }
 
             g_mapItems.insert(g_listHRegionsSubNative.at(i).sGUID, pItem);

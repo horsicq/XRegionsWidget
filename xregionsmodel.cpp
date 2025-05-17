@@ -174,7 +174,9 @@ void XRegionsModel::_toFormattedString(QString *pString, XRegionItem *pItem, qin
 {
     QString sResult;
     sResult = sResult.leftJustified(4 * nLevel, ' ');  // TODO function !!!
-    sResult.append(QString("%1 %2 %3 %4 %5 %6\n").arg(pItem->data(0).toString(), pItem->data(1).toString(), pItem->data(2).toString(), pItem->data(3).toString(), pItem->data(4).toString(), pItem->data(5).toString()));
+    sResult.append(QString("%1 %2 %3 %4 %5 %6\n")
+                       .arg(pItem->data(0).toString(), pItem->data(1).toString(), pItem->data(2).toString(), pItem->data(3).toString(), pItem->data(4).toString(),
+                            pItem->data(5).toString()));
     pString->append(sResult);
 
     qint32 nNumberOfChildren = pItem->childCount();

@@ -29,6 +29,7 @@ XRegionsModel::XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTION
     g_listHRegionTotal = XFormats::getHighlights(options.fileType, pDevice, XBinary::HLTYPE_TOTAL, options.bIsImage, options.nModuleAddress);
     g_listHRegionsNative = XFormats::getHighlights(options.fileType, pDevice, XBinary::HLTYPE_NATIVEREGIONS, options.bIsImage, options.nModuleAddress);
     g_listHRegionsSubNative = XFormats::getHighlights(options.fileType, pDevice, XBinary::HLTYPE_NATIVESUBREGIONS, options.bIsImage, options.nModuleAddress);
+    g_listHRegionsData = XFormats::getHighlights(options.fileType, pDevice, XBinary::HLTYPE_DATA, options.bIsImage, options.nModuleAddress);
 
     {
         qint32 nNumberOfRegionsTotal = g_listHRegionTotal.count();
@@ -70,6 +71,30 @@ XRegionsModel::XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTION
             }
 
             g_mapItems.insert(g_listHRegionsSubNative.at(i).sGUID, pItem);
+        }
+    }
+
+    {
+        qint32 nNumberOfRegions = g_listHRegionsData.count();
+
+        for (qint32 i = 0; i < nNumberOfRegions; i++) {
+            XRegionItem *pItem = new XRegionItem(g_pMainItem, g_listHRegionsData.at(i));
+
+            QString sGUID = XBinary::findParentHRegion(g_listHRegionsSubNative, g_listHRegionsData.at(i)).sGUID;
+
+            if (sGUID == "") {
+                sGUID = XBinary::findParentHRegion(g_listHRegionsNative, g_listHRegionsSubNative.at(i)).sGUID;
+            }
+
+            if (sGUID != "") {
+                g_mapItems.value(sGUID)->appendChild(pItem);
+            } else {
+                if (g_pMainItem) {
+                    g_pMainItem->appendChild(pItem);
+                }
+            }
+
+            g_mapItems.insert(g_listHRegionsData.at(i).sGUID, pItem);
         }
     }
 

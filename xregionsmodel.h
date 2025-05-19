@@ -58,6 +58,7 @@ private:
     QList<XBinary::HREGION> g_listHRegionTotal;
     QList<XBinary::HREGION> g_listHRegionsNative;
     QList<XBinary::HREGION> g_listHRegionsSubNative;
+    QList<XBinary::HREGION> g_listHRegionsData;
 };
 
 #endif  // XREGIONSMODEL_H

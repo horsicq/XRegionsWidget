@@ -168,6 +168,8 @@ int XRegionsModel::rowCount(const QModelIndex &parent) const
 
 int XRegionsModel::columnCount(const QModelIndex &parent) const
 {
+    Q_UNUSED(parent)
+
     return g_pMainItem->columnCount();
 }
 

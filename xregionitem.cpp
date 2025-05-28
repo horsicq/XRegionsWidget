@@ -67,26 +67,34 @@ XRegionItem *XRegionItem::getParentItem()
     return g_pParentItem;
 }
 
-QVariant XRegionItem::data(int nColumn) const
+QVariant XRegionItem::data(int nRole, int nColumn) const
 {
     QVariant result;
 
-    if (nColumn == COLUMN_NAME) {
-        result = g_hregion.sName;
-    } else if (nColumn == COLUMN_VIRTUALADDRESS) {
-        result = XBinary::valueToHex(g_hregion.nVirtualAddress);
-    } else if (nColumn == COLUMN_VIRTUALSIZE) {
-        result = XBinary::valueToHex(g_hregion.nVirtualSize);
-    } else if (nColumn == COLUMN_FILEOFFSET) {
-        result = XBinary::valueToHex(g_hregion.nFileOffset);
-    } else if (nColumn == COLUMN_FILESIZE) {
-        result = XBinary::valueToHex(g_hregion.nFileSize);
-    } else if (nColumn == COLUMN_RFLAGS) {
-        // TODO
-    } else if (nColumn == COLUMN_INFO) {
-        // TODO
-    } else {
-        result = QVariant();
+    if (nRole == Qt::DisplayRole) {
+        if (nColumn == COLUMN_NAME) {
+            result = g_hregion.sName;
+        } else if (nColumn == COLUMN_VIRTUALADDRESS) {
+            result = XBinary::valueToHex(g_hregion.nVirtualAddress);
+        } else if (nColumn == COLUMN_VIRTUALSIZE) {
+            result = XBinary::valueToHex(g_hregion.nVirtualSize);
+        } else if (nColumn == COLUMN_FILEOFFSET) {
+            result = XBinary::valueToHex(g_hregion.nFileOffset);
+        } else if (nColumn == COLUMN_FILESIZE) {
+            result = XBinary::valueToHex(g_hregion.nFileSize);
+        } else if (nColumn == COLUMN_RFLAGS) {
+            // TODO
+        } else if (nColumn == COLUMN_INFO) {
+            // TODO
+        } else {
+            result = QVariant();
+        }
+    } else if (nRole == Qt::TextAlignmentRole) {
+        if ((nColumn == XRegionItem::COLUMN_FILEOFFSET) || (nColumn == XRegionItem::COLUMN_FILESIZE) || (nColumn == XRegionItem::COLUMN_VIRTUALADDRESS) || (nColumn == XRegionItem::COLUMN_VIRTUALSIZE)) {
+            result = (qint32)Qt::AlignVCenter + (qint32)Qt::AlignRight;
+        } else {
+            result = (qint32)Qt::AlignVCenter + (qint32)Qt::AlignLeft;
+        }
     }
 
     return result;

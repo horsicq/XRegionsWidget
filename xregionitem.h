@@ -24,12 +24,7 @@
 #include "xinfodb.h"
 
 class XRegionItem {
-    // XADDR nVirtualAddress;
-    // qint64 nVirtualSize;
-    // qint64 nFileOffset;
-    // qint64 nFileSize;
-    // RFLAGS rflags;
-    // QString sName;
+public:
     enum COLUMN {
         COLUMN_VIRTUALADDRESS = 0,
         COLUMN_VIRTUALSIZE,
@@ -41,7 +36,6 @@ class XRegionItem {
         __COLUMN_SIZE
     };
 
-public:
     XRegionItem(XRegionItem *pItemParent, const XBinary::HREGION &hregion);
     ~XRegionItem();
 
@@ -51,7 +45,7 @@ public:
     int columnCount() const;
     int row() const;
     XRegionItem *getParentItem();
-    QVariant data(int nColumn) const;
+    QVariant data(int nRole, int nColumn) const;
 
 private:
     QList<XRegionItem *> g_listChildItems;

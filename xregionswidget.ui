@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>550</width>
-    <height>341</height>
+    <width>515</width>
+    <height>361</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -87,6 +87,16 @@
    </item>
    <item>
     <widget class="QTreeView" name="treeViewMain"/>
+   </item>
+   <item>
+    <widget class="QWidget" name="widgetHex" native="true">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>

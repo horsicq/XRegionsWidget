@@ -210,7 +210,8 @@ QVariant XRegionsModel::headerData(int nSection, Qt::Orientation orientation, in
                 result = QString();
             }
         } else if (nRole == Qt::TextAlignmentRole) {
-            if ((nSection == XRegionItem::COLUMN_FILEOFFSET) || (nSection == XRegionItem::COLUMN_FILESIZE) || (nSection == XRegionItem::COLUMN_VIRTUALADDRESS) || (nSection == XRegionItem::COLUMN_VIRTUALSIZE)) {
+            if ((nSection == XRegionItem::COLUMN_FILEOFFSET) || (nSection == XRegionItem::COLUMN_FILESIZE) || (nSection == XRegionItem::COLUMN_VIRTUALADDRESS) ||
+                (nSection == XRegionItem::COLUMN_VIRTUALSIZE)) {
                 result = (qint32)Qt::AlignVCenter + (qint32)Qt::AlignRight;
             } else {
                 result = (qint32)Qt::AlignVCenter + (qint32)Qt::AlignLeft;
@@ -235,12 +236,8 @@ void XRegionsModel::_toFormattedString(QString *pString, XRegionItem *pItem, qin
     QString sResult;
     sResult = sResult.leftJustified(4 * nLevel, ' ');  // TODO function !!!
     sResult.append(QString("%1 %2 %3 %4 %5 %6\n")
-                       .arg(pItem->data(Qt::DisplayRole, 0).toString(),
-                            pItem->data(Qt::DisplayRole, 1).toString(),
-                            pItem->data(Qt::DisplayRole, 2).toString(),
-                            pItem->data(Qt::DisplayRole, 3).toString(),
-                            pItem->data(Qt::DisplayRole, 4).toString(),
-                            pItem->data(Qt::DisplayRole, 5).toString()));
+                       .arg(pItem->data(Qt::DisplayRole, 0).toString(), pItem->data(Qt::DisplayRole, 1).toString(), pItem->data(Qt::DisplayRole, 2).toString(),
+                            pItem->data(Qt::DisplayRole, 3).toString(), pItem->data(Qt::DisplayRole, 4).toString(), pItem->data(Qt::DisplayRole, 5).toString()));
     pString->append(sResult);
 
     qint32 nNumberOfChildren = pItem->childCount();

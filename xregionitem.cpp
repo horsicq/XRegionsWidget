@@ -90,7 +90,8 @@ QVariant XRegionItem::data(int nRole, int nColumn) const
             result = QVariant();
         }
     } else if (nRole == Qt::TextAlignmentRole) {
-        if ((nColumn == XRegionItem::COLUMN_FILEOFFSET) || (nColumn == XRegionItem::COLUMN_FILESIZE) || (nColumn == XRegionItem::COLUMN_VIRTUALADDRESS) || (nColumn == XRegionItem::COLUMN_VIRTUALSIZE)) {
+        if ((nColumn == XRegionItem::COLUMN_FILEOFFSET) || (nColumn == XRegionItem::COLUMN_FILESIZE) || (nColumn == XRegionItem::COLUMN_VIRTUALADDRESS) ||
+            (nColumn == XRegionItem::COLUMN_VIRTUALSIZE)) {
             result = (qint32)Qt::AlignVCenter + (qint32)Qt::AlignRight;
         } else {
             result = (qint32)Qt::AlignVCenter + (qint32)Qt::AlignLeft;

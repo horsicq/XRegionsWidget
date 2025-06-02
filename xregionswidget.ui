@@ -86,7 +86,11 @@
     </layout>
    </item>
    <item>
-    <widget class="QTreeView" name="treeViewMain"/>
+    <widget class="QTreeView" name="treeViewMain">
+     <property name="rootIsDecorated">
+      <bool>true</bool>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="QWidget" name="widgetHex" native="true">

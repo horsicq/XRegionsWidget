@@ -58,16 +58,20 @@ XRegionsModel::XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTION
         qint32 nNumberOfRegions = g_listHRegionsSubNative.count();
 
         for (qint32 i = 0; i < nNumberOfRegions; i++) {
-            XRegionItem *pItem = new XRegionItem(g_pMainItem, g_listHRegionsSubNative.at(i));
+            XRegionItem *pParentItem = nullptr;
 
             QString sGUID = XBinary::findParentHRegion(g_listHRegionsNative, g_listHRegionsSubNative.at(i)).sGUID;
 
             if (sGUID != "") {
-                g_mapItems.value(sGUID)->appendChild(pItem);
+                pParentItem = g_mapItems.value(sGUID);
             } else {
-                if (g_pMainItem) {
-                    g_pMainItem->appendChild(pItem);
-                }
+                pParentItem = g_pMainItem;
+            }
+
+            XRegionItem *pItem = new XRegionItem(pParentItem, g_listHRegionsSubNative.at(i));
+
+            if (pParentItem) {
+                pParentItem->appendChild(pItem);
             }
 
             g_mapItems.insert(g_listHRegionsSubNative.at(i).sGUID, pItem);
@@ -78,20 +82,24 @@ XRegionsModel::XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTION
         qint32 nNumberOfRegions = g_listHRegionsData.count();
 
         for (qint32 i = 0; i < nNumberOfRegions; i++) {
-            XRegionItem *pItem = new XRegionItem(g_pMainItem, g_listHRegionsData.at(i));
+            XRegionItem *pParentItem = nullptr;
 
             QString sGUID = XBinary::findParentHRegion(g_listHRegionsSubNative, g_listHRegionsData.at(i)).sGUID;
 
             if (sGUID == "") {
-                sGUID = XBinary::findParentHRegion(g_listHRegionsNative, g_listHRegionsSubNative.at(i)).sGUID;
+                sGUID = XBinary::findParentHRegion(g_listHRegionsNative, g_listHRegionsData.at(i)).sGUID;
             }
 
             if (sGUID != "") {
-                g_mapItems.value(sGUID)->appendChild(pItem);
+                pParentItem = g_mapItems.value(sGUID);
             } else {
-                if (g_pMainItem) {
-                    g_pMainItem->appendChild(pItem);
-                }
+                pParentItem = g_pMainItem;
+            }
+
+            XRegionItem *pItem = new XRegionItem(pParentItem, g_listHRegionsData.at(i));
+
+            if (pParentItem) {
+                pParentItem->appendChild(pItem);
             }
 
             g_mapItems.insert(g_listHRegionsData.at(i).sGUID, pItem);

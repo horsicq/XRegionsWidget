@@ -35,20 +35,20 @@ XRegionsModel::XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTION
         qint32 nNumberOfRegionsTotal = g_listHRegionTotal.count();
 
         if (nNumberOfRegionsTotal) {
-            g_pMainItem = new XRegionItem(nullptr, g_listHRegionTotal.at(0));
-            g_mapItems.insert(g_listHRegionTotal.at(0).sGUID, g_pMainItem);
+            g_pTotalItem = new XRegionItem(nullptr, g_listHRegionTotal.at(0));
+            g_mapItems.insert(g_listHRegionTotal.at(0).sGUID, g_pTotalItem);
         } else {
-            g_pMainItem = nullptr;
+            g_pTotalItem = nullptr;
         }
     }
     {
         qint32 nNumberOfRegions = g_listHRegionsNative.count();
 
         for (qint32 i = 0; i < nNumberOfRegions; i++) {
-            XRegionItem *pItem = new XRegionItem(g_pMainItem, g_listHRegionsNative.at(i));
+            XRegionItem *pItem = new XRegionItem(g_pTotalItem, g_listHRegionsNative.at(i));
 
-            if (g_pMainItem) {
-                g_pMainItem->appendChild(pItem);
+            if (g_pTotalItem) {
+                g_pTotalItem->appendChild(pItem);
             }
 
             g_mapItems.insert(g_listHRegionsNative.at(i).sGUID, pItem);
@@ -65,7 +65,7 @@ XRegionsModel::XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTION
             if (sGUID != "") {
                 pParentItem = g_mapItems.value(sGUID);
             } else {
-                pParentItem = g_pMainItem;
+                pParentItem = g_pTotalItem;
             }
 
             XRegionItem *pItem = new XRegionItem(pParentItem, g_listHRegionsSubNative.at(i));
@@ -93,7 +93,7 @@ XRegionsModel::XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTION
             if (sGUID != "") {
                 pParentItem = g_mapItems.value(sGUID);
             } else {
-                pParentItem = g_pMainItem;
+                pParentItem = g_pTotalItem;
             }
 
             XRegionItem *pItem = new XRegionItem(pParentItem, g_listHRegionsData.at(i));
@@ -111,8 +111,8 @@ XRegionsModel::XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTION
 
 XRegionsModel::~XRegionsModel()
 {
-    if (g_pMainItem) {
-        delete g_pMainItem;
+    if (g_pTotalItem) {
+        delete g_pTotalItem;
     }
 }
 
@@ -124,7 +124,7 @@ QModelIndex XRegionsModel::index(int nRow, int nColumn, const QModelIndex &paren
         XRegionItem *pParentItem = nullptr;
 
         if (!parent.isValid()) {
-            pParentItem = g_pMainItem;
+            pParentItem = g_pTotalItem;
         } else {
             pParentItem = static_cast<XRegionItem *>(parent.internalPointer());
         }
@@ -147,7 +147,7 @@ QModelIndex XRegionsModel::parent(const QModelIndex &index) const
         XRegionItem *pItemChild = static_cast<XRegionItem *>(index.internalPointer());
         XRegionItem *pParentItem = pItemChild->getParentItem();
 
-        if (pParentItem != g_pMainItem) {
+        if (pParentItem != g_pTotalItem) {
             result = createIndex(pParentItem->row(), 0, pParentItem);
         }
     }
@@ -163,7 +163,7 @@ int XRegionsModel::rowCount(const QModelIndex &parent) const
         XRegionItem *pParentItem = nullptr;
 
         if (!parent.isValid()) {
-            pParentItem = g_pMainItem;
+            pParentItem = g_pTotalItem;
         } else {
             pParentItem = static_cast<XRegionItem *>(parent.internalPointer());
         }
@@ -178,7 +178,7 @@ int XRegionsModel::columnCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent)
 
-    return g_pMainItem->columnCount();
+    return g_pTotalItem->columnCount();
 }
 
 QVariant XRegionsModel::data(const QModelIndex &index, int nRole) const
@@ -234,7 +234,7 @@ QString XRegionsModel::toFormattedString()
 {
     QString sResult;
 
-    _toFormattedString(&sResult, g_pMainItem, 0);
+    _toFormattedString(&sResult, g_pTotalItem, 0);
 
     return sResult;
 }

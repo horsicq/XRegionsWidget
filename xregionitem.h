@@ -36,6 +36,14 @@ public:
         __COLUMN_SIZE
     };
 
+    enum UR {
+        UR_FILEOFFSET = 0,
+        UR_FILESIZE,
+        UR_VIRTUALADDRESS,
+        UR_VIRTUALSIZE,
+        UR_NAME,
+    };
+
     XRegionItem(XRegionItem *pItemParent, const XBinary::HREGION &hregion);
     ~XRegionItem();
 

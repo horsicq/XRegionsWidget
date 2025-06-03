@@ -54,7 +54,7 @@ private:
     QIODevice *g_pDevice;
     XInfoDB *g_pXInfoDB;
     OPTIONS g_options;
-    XRegionItem *g_pMainItem;
+    XRegionItem *g_pTotalItem;
     QMap<QString, XRegionItem *> g_mapItems;
     QList<XBinary::HREGION> g_listHRegionTotal;
     QList<XBinary::HREGION> g_listHRegionsNative;

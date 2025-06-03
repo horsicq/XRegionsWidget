@@ -96,6 +96,16 @@ QVariant XRegionItem::data(int nRole, int nColumn) const
         } else {
             result = (qint32)Qt::AlignVCenter + (qint32)Qt::AlignLeft;
         }
+    } else if (nRole == Qt::UserRole + XRegionItem::UR_FILEOFFSET) {
+        result = g_hregion.nFileOffset;
+    } else if (nRole == Qt::UserRole + XRegionItem::UR_FILESIZE) {
+        result = g_hregion.nFileSize;
+    } else if (nRole == Qt::UserRole + XRegionItem::UR_VIRTUALADDRESS) {
+        result = g_hregion.nVirtualAddress;
+    } else if (nRole == Qt::UserRole + XRegionItem::UR_VIRTUALSIZE) {
+        result = g_hregion.nVirtualSize;
+    } else if (nRole == Qt::UserRole + XRegionItem::UR_NAME) {
+        result = g_hregion.sName;
     }
 
     return result;

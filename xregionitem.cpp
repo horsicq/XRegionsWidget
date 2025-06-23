@@ -74,6 +74,8 @@ QVariant XRegionItem::data(int nRole, int nColumn) const
     if (nRole == Qt::DisplayRole) {
         if (nColumn == COLUMN_NAME) {
             result = g_hregion.sName;
+        } else if (nColumn == COLUMN_PREFIX) {
+            result = g_hregion.sPrefix;
         } else if (nColumn == COLUMN_VIRTUALADDRESS) {
             result = XBinary::valueToHex(g_hregion.nVirtualAddress);
         } else if (nColumn == COLUMN_VIRTUALSIZE) {

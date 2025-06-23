@@ -26,7 +26,8 @@
 class XRegionItem {
 public:
     enum COLUMN {
-        COLUMN_VIRTUALADDRESS = 0,
+        COLUMN_PREFIX = 0,
+        COLUMN_VIRTUALADDRESS,
         COLUMN_VIRTUALSIZE,
         COLUMN_FILEOFFSET,
         COLUMN_FILESIZE,

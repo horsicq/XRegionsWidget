@@ -77,7 +77,9 @@ QVariant XRegionItem::data(int nRole, int nColumn) const
         } else if (nColumn == COLUMN_PREFIX) {
             result = g_hregion.sPrefix;
         } else if (nColumn == COLUMN_VIRTUALADDRESS) {
-            result = XBinary::valueToHex(g_hregion.nVirtualAddress);
+            if (g_hregion.nVirtualAddress != -1) {
+                result = XBinary::valueToHex(g_hregion.nVirtualAddress);
+            }
         } else if (nColumn == COLUMN_VIRTUALSIZE) {
             result = XBinary::valueToHex(g_hregion.nVirtualSize);
         } else if (nColumn == COLUMN_FILEOFFSET) {
@@ -88,8 +90,6 @@ QVariant XRegionItem::data(int nRole, int nColumn) const
             // TODO
         } else if (nColumn == COLUMN_INFO) {
             // TODO
-        } else {
-            result = QVariant();
         }
     } else if (nRole == Qt::TextAlignmentRole) {
         if ((nColumn == XRegionItem::COLUMN_FILEOFFSET) || (nColumn == XRegionItem::COLUMN_FILESIZE) || (nColumn == XRegionItem::COLUMN_VIRTUALADDRESS) ||

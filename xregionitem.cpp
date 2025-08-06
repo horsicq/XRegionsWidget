@@ -22,28 +22,28 @@
 
 XRegionItem::XRegionItem(XRegionItem *pItemParent, const XBinary::HREGION &hregion)
 {
-    g_pParentItem = pItemParent;
-    g_hregion = hregion;
+    m_pParentItem = pItemParent;
+    m_hregion = hregion;
 }
 
 XRegionItem::~XRegionItem()
 {
-    qDeleteAll(g_listChildItems);
+    qDeleteAll(m_listChildItems);
 }
 
 void XRegionItem::appendChild(XRegionItem *pItemChild)
 {
-    g_listChildItems.append(pItemChild);
+    m_listChildItems.append(pItemChild);
 }
 
 XRegionItem *XRegionItem::child(int nRow)
 {
-    return g_listChildItems.value(nRow);
+    return m_listChildItems.value(nRow);
 }
 
 int XRegionItem::childCount() const
 {
-    return g_listChildItems.count();
+    return m_listChildItems.count();
 }
 
 int XRegionItem::columnCount() const
@@ -55,8 +55,8 @@ int XRegionItem::row() const
 {
     int nResult = 0;
 
-    if (g_pParentItem) {
-        nResult = g_pParentItem->g_listChildItems.indexOf(const_cast<XRegionItem *>(this));
+    if (m_pParentItem) {
+        nResult = m_pParentItem->m_listChildItems.indexOf(const_cast<XRegionItem *>(this));
     }
 
     return nResult;
@@ -64,7 +64,7 @@ int XRegionItem::row() const
 
 XRegionItem *XRegionItem::getParentItem()
 {
-    return g_pParentItem;
+    return m_pParentItem;
 }
 
 QVariant XRegionItem::data(int nRole, int nColumn) const
@@ -73,19 +73,19 @@ QVariant XRegionItem::data(int nRole, int nColumn) const
 
     if (nRole == Qt::DisplayRole) {
         if (nColumn == COLUMN_NAME) {
-            result = g_hregion.sName;
+            result = m_hregion.sName;
         } else if (nColumn == COLUMN_PREFIX) {
-            result = g_hregion.sPrefix;
+            result = m_hregion.sPrefix;
         } else if (nColumn == COLUMN_VIRTUALADDRESS) {
-            if (g_hregion.nVirtualAddress != -1) {
-                result = XBinary::valueToHex(g_hregion.nVirtualAddress);
+            if (m_hregion.nVirtualAddress != -1) {
+                result = XBinary::valueToHex(m_hregion.nVirtualAddress);
             }
         } else if (nColumn == COLUMN_VIRTUALSIZE) {
-            result = XBinary::valueToHex(g_hregion.nVirtualSize);
+            result = XBinary::valueToHex(m_hregion.nVirtualSize);
         } else if (nColumn == COLUMN_FILEOFFSET) {
-            result = XBinary::valueToHex(g_hregion.nFileOffset);
+            result = XBinary::valueToHex(m_hregion.nFileOffset);
         } else if (nColumn == COLUMN_FILESIZE) {
-            result = XBinary::valueToHex(g_hregion.nFileSize);
+            result = XBinary::valueToHex(m_hregion.nFileSize);
         } else if (nColumn == COLUMN_RFLAGS) {
             // TODO
         } else if (nColumn == COLUMN_INFO) {
@@ -99,15 +99,15 @@ QVariant XRegionItem::data(int nRole, int nColumn) const
             result = (qint32)Qt::AlignVCenter + (qint32)Qt::AlignLeft;
         }
     } else if (nRole == Qt::UserRole + XRegionItem::UR_FILEOFFSET) {
-        result = g_hregion.nFileOffset;
+        result = m_hregion.nFileOffset;
     } else if (nRole == Qt::UserRole + XRegionItem::UR_FILESIZE) {
-        result = g_hregion.nFileSize;
+        result = m_hregion.nFileSize;
     } else if (nRole == Qt::UserRole + XRegionItem::UR_VIRTUALADDRESS) {
-        result = g_hregion.nVirtualAddress;
+        result = m_hregion.nVirtualAddress;
     } else if (nRole == Qt::UserRole + XRegionItem::UR_VIRTUALSIZE) {
-        result = g_hregion.nVirtualSize;
+        result = m_hregion.nVirtualSize;
     } else if (nRole == Qt::UserRole + XRegionItem::UR_NAME) {
-        result = g_hregion.sName;
+        result = m_hregion.sName;
     }
 
     return result;

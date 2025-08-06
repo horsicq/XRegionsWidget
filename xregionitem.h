@@ -57,9 +57,9 @@ public:
     QVariant data(int nRole, int nColumn) const;
 
 private:
-    QList<XRegionItem *> g_listChildItems;
-    XRegionItem *g_pParentItem;
-    XBinary::HREGION g_hregion;
+    QList<XRegionItem *> m_listChildItems;
+    XRegionItem *m_pParentItem;
+    XBinary::HREGION m_hregion;
 };
 
 #endif  // XREGIONITEM_H

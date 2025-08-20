@@ -45,7 +45,7 @@ public:
         UR_NAME,
     };
 
-    XRegionItem(XRegionItem *pItemParent, const XBinary::HREGION &hregion);
+    XRegionItem(XRegionItem *pItemParent, const XBinary::FPART &hregion);
     ~XRegionItem();
 
     void appendChild(XRegionItem *pItemChild);
@@ -59,7 +59,7 @@ public:
 private:
     QList<XRegionItem *> m_listChildItems;
     XRegionItem *m_pParentItem;
-    XBinary::HREGION m_hregion;
+    XBinary::FPART m_hregion;
 };
 
 #endif  // XREGIONITEM_H

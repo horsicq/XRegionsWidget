@@ -36,7 +36,7 @@ XRegionsModel::XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTION
 
         if (nNumberOfRegionsTotal) {
             g_pTotalItem = new XRegionItem(nullptr, g_listHRegionTotal.at(0));
-            g_mapItems.insert(g_listHRegionTotal.at(0).sGUID, g_pTotalItem);
+            g_mapItems.insert(XBinary::getFPART_crc32(g_listHRegionTotal.at(0)), g_pTotalItem);
         } else {
             g_pTotalItem = nullptr;
         }
@@ -51,7 +51,7 @@ XRegionsModel::XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTION
                 g_pTotalItem->appendChild(pItem);
             }
 
-            g_mapItems.insert(g_listHRegionsNative.at(i).sGUID, pItem);
+            g_mapItems.insert(XBinary::getFPART_crc32(g_listHRegionsNative.at(i)), pItem);
         }
     }
     {
@@ -60,10 +60,10 @@ XRegionsModel::XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTION
         for (qint32 i = 0; i < nNumberOfRegions; i++) {
             XRegionItem *pParentItem = nullptr;
 
-            QString sGUID = XBinary::findParentHRegion(g_listHRegionsNative, g_listHRegionsSubNative.at(i)).sGUID;
+            quint32 nCRC = XBinary::getFPART_crc32(XBinary::findParentFPart(g_listHRegionsNative, g_listHRegionsSubNative.at(i)));
 
-            if (sGUID != "") {
-                pParentItem = g_mapItems.value(sGUID);
+            if (g_mapItems.contains(nCRC)) {
+                pParentItem = g_mapItems.value(nCRC);
             } else {
                 pParentItem = g_pTotalItem;
             }
@@ -74,7 +74,7 @@ XRegionsModel::XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTION
                 pParentItem->appendChild(pItem);
             }
 
-            g_mapItems.insert(g_listHRegionsSubNative.at(i).sGUID, pItem);
+            g_mapItems.insert(XBinary::getFPART_crc32(g_listHRegionsSubNative.at(i)), pItem);
         }
     }
 
@@ -84,14 +84,14 @@ XRegionsModel::XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTION
         for (qint32 i = 0; i < nNumberOfRegions; i++) {
             XRegionItem *pParentItem = nullptr;
 
-            QString sGUID = XBinary::findParentHRegion(g_listHRegionsSubNative, g_listHRegionsData.at(i)).sGUID;
+            quint32 nCRC = XBinary::getFPART_crc32(XBinary::findParentFPart(g_listHRegionsSubNative, g_listHRegionsData.at(i)));
 
-            if (sGUID == "") {
-                sGUID = XBinary::findParentHRegion(g_listHRegionsNative, g_listHRegionsData.at(i)).sGUID;
+            if (!g_mapItems.contains(nCRC)) {
+                nCRC = XBinary::getFPART_crc32(XBinary::findParentFPart(g_listHRegionsNative, g_listHRegionsData.at(i)));
             }
 
-            if (sGUID != "") {
-                pParentItem = g_mapItems.value(sGUID);
+            if (g_mapItems.contains(nCRC)) {
+                pParentItem = g_mapItems.value(nCRC);
             } else {
                 pParentItem = g_pTotalItem;
             }
@@ -102,7 +102,7 @@ XRegionsModel::XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTION
                 pParentItem->appendChild(pItem);
             }
 
-            g_mapItems.insert(g_listHRegionsData.at(i).sGUID, pItem);
+            g_mapItems.insert(XBinary::getFPART_crc32(g_listHRegionsData.at(i)), pItem);
         }
     }
 

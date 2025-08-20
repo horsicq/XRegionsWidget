@@ -20,7 +20,7 @@
  */
 #include "xregionitem.h"
 
-XRegionItem::XRegionItem(XRegionItem *pItemParent, const XBinary::HREGION &hregion)
+XRegionItem::XRegionItem(XRegionItem *pItemParent, const XBinary::FPART &hregion)
 {
     m_pParentItem = pItemParent;
     m_hregion = hregion;
@@ -75,7 +75,7 @@ QVariant XRegionItem::data(int nRole, int nColumn) const
         if (nColumn == COLUMN_NAME) {
             result = m_hregion.sName;
         } else if (nColumn == COLUMN_PREFIX) {
-            result = m_hregion.sPrefix;
+            result = ""; // TODO
         } else if (nColumn == COLUMN_VIRTUALADDRESS) {
             if (m_hregion.nVirtualAddress != -1) {
                 result = XBinary::valueToHex(m_hregion.nVirtualAddress);

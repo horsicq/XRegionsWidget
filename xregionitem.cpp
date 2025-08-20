@@ -75,7 +75,7 @@ QVariant XRegionItem::data(int nRole, int nColumn) const
         if (nColumn == COLUMN_NAME) {
             result = m_hregion.sName;
         } else if (nColumn == COLUMN_PREFIX) {
-            result = ""; // TODO
+            result = "";  // TODO
         } else if (nColumn == COLUMN_VIRTUALADDRESS) {
             if (m_hregion.nVirtualAddress != -1) {
                 result = XBinary::valueToHex(m_hregion.nVirtualAddress);

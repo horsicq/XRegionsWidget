@@ -51,7 +51,7 @@ private:
     void _toFormattedString(QString *pString, XRegionItem *pItem, qint32 nLevel);
 
 private:
-    QIODevice *g_pDevice;
+    QIODevice *m_pDevice;
     XInfoDB *g_pXInfoDB;
     OPTIONS g_options;
     XRegionItem *g_pTotalItem;

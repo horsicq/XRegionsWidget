@@ -43,7 +43,7 @@ public:
 
 private:
     Ui::XRegionsWidget *ui;
-    QIODevice *g_pDevice;
+    QIODevice *m_pDevice;
     XInfoDB *g_pXInfoDB;
     XRegionsModel::OPTIONS g_options;
 };

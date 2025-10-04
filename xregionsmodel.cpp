@@ -22,7 +22,7 @@
 
 XRegionsModel::XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTIONS &options, QObject *pParent) : QAbstractItemModel(pParent)
 {
-    g_pDevice = pDevice;
+    m_pDevice = pDevice;
     g_pXInfoDB = pXInfoDB;
     g_options = options;
 

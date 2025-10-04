@@ -25,7 +25,7 @@ XRegionsWidget::XRegionsWidget(QWidget *pParent) : XShortcutsWidget(pParent), ui
 {
     ui->setupUi(this);
 
-    g_pDevice = nullptr;
+    m_pDevice = nullptr;
     g_pXInfoDB = nullptr;
     g_options = {};
 }
@@ -37,11 +37,11 @@ XRegionsWidget::~XRegionsWidget()
 
 void XRegionsWidget::setData(QIODevice *pDevice, XInfoDB *pXInfoDB, const XRegionsModel::OPTIONS &options, bool bReload)
 {
-    g_pDevice = pDevice;
+    m_pDevice = pDevice;
     g_pXInfoDB = pXInfoDB;
     g_options = options;
 
-    XFormats::setFileTypeComboBox(options.fileType, g_pDevice, ui->comboBoxType);
+    XFormats::setFileTypeComboBox(options.fileType, m_pDevice, ui->comboBoxType);
 
     if (bReload) {
         reloadData(false);
@@ -59,7 +59,7 @@ void XRegionsWidget::reloadData(bool bSaveSelection)
     if (g_pXInfoDB) {
         XRegionsModel::OPTIONS _options = g_options;
         _options.fileType = (XBinary::FT)(ui->comboBoxType->currentData().toUInt());
-        XRegionsModel *pModel = new XRegionsModel(g_pDevice, g_pXInfoDB, _options, this);
+        XRegionsModel *pModel = new XRegionsModel(m_pDevice, g_pXInfoDB, _options, this);
 
         ui->treeViewMain->setModel(pModel);
     }

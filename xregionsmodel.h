@@ -52,14 +52,14 @@ private:
 
 private:
     QIODevice *m_pDevice;
-    XInfoDB *g_pXInfoDB;
-    OPTIONS g_options;
-    XRegionItem *g_pTotalItem;
-    QMap<quint32, XRegionItem *> g_mapItems;
-    QList<XBinary::FPART> g_listHRegionTotal;
-    QList<XBinary::FPART> g_listHRegionsNative;
-    QList<XBinary::FPART> g_listHRegionsSubNative;
-    QList<XBinary::FPART> g_listHRegionsData;
+    XInfoDB *m_pXInfoDB;
+    OPTIONS m_options;
+    XRegionItem *m_pTotalItem;
+    QMap<quint32, XRegionItem *> m_mapItems;
+    QList<XBinary::FPART> m_listHRegionTotal;
+    QList<XBinary::FPART> m_listHRegionsNative;
+    QList<XBinary::FPART> m_listHRegionsSubNative;
+    QList<XBinary::FPART> m_listHRegionsData;
 };
 
 #endif  // XREGIONSMODEL_H

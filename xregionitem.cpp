@@ -53,13 +53,11 @@ int XRegionItem::columnCount() const
 
 int XRegionItem::row() const
 {
-    int nResult = 0;
-
     if (m_pParentItem) {
-        nResult = m_pParentItem->m_listChildItems.indexOf(const_cast<XRegionItem *>(this));
+        return m_pParentItem->m_listChildItems.indexOf(const_cast<XRegionItem *>(this));
     }
 
-    return nResult;
+    return 0;
 }
 
 XRegionItem *XRegionItem::getParentItem()
@@ -94,9 +92,9 @@ QVariant XRegionItem::data(int nRole, int nColumn) const
     } else if (nRole == Qt::TextAlignmentRole) {
         if ((nColumn == XRegionItem::COLUMN_FILEOFFSET) || (nColumn == XRegionItem::COLUMN_FILESIZE) || (nColumn == XRegionItem::COLUMN_VIRTUALADDRESS) ||
             (nColumn == XRegionItem::COLUMN_VIRTUALSIZE)) {
-            result = (qint32)Qt::AlignVCenter + (qint32)Qt::AlignRight;
+            result = static_cast<qint32>(Qt::AlignVCenter) + static_cast<qint32>(Qt::AlignRight);
         } else {
-            result = (qint32)Qt::AlignVCenter + (qint32)Qt::AlignLeft;
+            result = static_cast<qint32>(Qt::AlignVCenter) + static_cast<qint32>(Qt::AlignLeft);
         }
     } else if (nRole == Qt::UserRole + XRegionItem::UR_FILEOFFSET) {
         result = m_hregion.nFileOffset;

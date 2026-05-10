@@ -47,6 +47,7 @@ public:
 
     XRegionItem(XRegionItem *pItemParent, const XBinary::FPART &hregion);
     ~XRegionItem();
+    Q_DISABLE_COPY(XRegionItem)
 
     void appendChild(XRegionItem *pItemChild);
     XRegionItem *child(int nRow);

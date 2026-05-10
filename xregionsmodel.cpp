@@ -45,11 +45,13 @@ XRegionsModel::XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTION
         qint32 nNumberOfRegions = m_listHRegionsNative.count();
 
         for (qint32 i = 0; i < nNumberOfRegions; i++) {
+            if (!m_pTotalItem) {
+                continue;
+            }
+
             XRegionItem *pItem = new XRegionItem(m_pTotalItem, m_listHRegionsNative.at(i));
 
-            if (m_pTotalItem) {
-                m_pTotalItem->appendChild(pItem);
-            }
+            m_pTotalItem->appendChild(pItem);
 
             m_mapItems.insert(XBinary::getFPART_crc32(m_listHRegionsNative.at(i)), pItem);
         }
@@ -68,11 +70,13 @@ XRegionsModel::XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTION
                 pParentItem = m_pTotalItem;
             }
 
+            if (!pParentItem) {
+                continue;
+            }
+
             XRegionItem *pItem = new XRegionItem(pParentItem, m_listHRegionsSubNative.at(i));
 
-            if (pParentItem) {
-                pParentItem->appendChild(pItem);
-            }
+            pParentItem->appendChild(pItem);
 
             m_mapItems.insert(XBinary::getFPART_crc32(m_listHRegionsSubNative.at(i)), pItem);
         }
@@ -96,11 +100,13 @@ XRegionsModel::XRegionsModel(QIODevice *pDevice, XInfoDB *pXInfoDB, const OPTION
                 pParentItem = m_pTotalItem;
             }
 
+            if (!pParentItem) {
+                continue;
+            }
+
             XRegionItem *pItem = new XRegionItem(pParentItem, m_listHRegionsData.at(i));
 
-            if (pParentItem) {
-                pParentItem->appendChild(pItem);
-            }
+            pParentItem->appendChild(pItem);
 
             m_mapItems.insert(XBinary::getFPART_crc32(m_listHRegionsData.at(i)), pItem);
         }
@@ -168,7 +174,9 @@ int XRegionsModel::rowCount(const QModelIndex &parent) const
             pParentItem = static_cast<XRegionItem *>(parent.internalPointer());
         }
 
-        nResult = pParentItem->childCount();
+        if (pParentItem) {
+            nResult = pParentItem->childCount();
+        }
     }
 
     return nResult;
@@ -178,7 +186,7 @@ int XRegionsModel::columnCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent)
 
-    return m_pTotalItem->columnCount();
+    return m_pTotalItem ? m_pTotalItem->columnCount() : 0;
 }
 
 QVariant XRegionsModel::data(const QModelIndex &index, int nRole) const
@@ -236,13 +244,19 @@ QString XRegionsModel::toFormattedString()
 {
     QString sResult;
 
-    _toFormattedString(&sResult, m_pTotalItem, 0);
+    if (m_pTotalItem) {
+        _toFormattedString(&sResult, m_pTotalItem, 0);
+    }
 
     return sResult;
 }
 
 void XRegionsModel::_toFormattedString(QString *pString, XRegionItem *pItem, qint32 nLevel)
 {
+    if (!pItem) {
+        return;
+    }
+
     QString sResult;
     sResult = sResult.leftJustified(4 * nLevel, ' ');  // TODO function !!!
     sResult.append(QString("%1 %2 %3 %4 %5 %6 %7 %8\n")

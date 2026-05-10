@@ -59,6 +59,10 @@ void XRegionsWidget::reloadData(bool bSaveSelection)
     if (g_pXInfoDB) {
         XRegionsModel::OPTIONS _options = g_options;
         _options.fileType = (XBinary::FT)(ui->comboBoxType->currentData().toUInt());
+        QAbstractItemModel *pOldModel = ui->treeViewMain->model();
+        ui->treeViewMain->setModel(nullptr);
+        delete pOldModel;
+
         XRegionsModel *pModel = new XRegionsModel(m_pDevice, g_pXInfoDB, _options, this);
 
         ui->treeViewMain->setModel(pModel);
